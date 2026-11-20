@@ -16,10 +16,10 @@ Project Objectives
 
 Team Members
 
-Role| Full Name| Register Number
-Team Member| ABHIRAMI R| RA2511003050154
-Team Member| JANANIKA S| RA2511003050155
-Team Member| PARVISHA V| RA2511003040493
+Role       | Full Name | Register Number |Department|Section|Academic Year| 
+Team Leader| ABHIRAMI R| RA2511003050154 | CSE      |   C   |   ||        |
+Team Member| JANANIKA S| RA2511003050155 | CSE      |   C   |   ||        |
+Team Member| PARVISHA V| RA2511003040493 | CSE      |   C   |   ||        |
 
 Mentor
 
