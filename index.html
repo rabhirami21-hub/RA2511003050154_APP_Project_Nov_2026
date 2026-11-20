@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chaos-Driven Cryptosystem for Telemedicine Image Privacy</title>
+<style>
+:root{--bg:#f6f8f9;--card:#fff;--ink:#14232b;--mute:#5b6b74;--line:#dbe3e7;--acc:#0b7a75;--acc2:#e4f3f2;--bad:#b3261e;--ok:#17803d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e171b;--card:#16232a;--ink:#e6eef1;--mute:#9db0b8;--line:#263a43;--acc:#3cc4bb;--acc2:#12312f;--bad:#ff8a80;--ok:#6fdc8c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e171b;--card:#16232a;--ink:#e6eef1;--mute:#9db0b8;--line:#263a43;--acc:#3cc4bb;--acc2:#12312f;--bad:#ff8a80;--ok:#6fdc8c;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:1040px;margin:0 auto;padding:0 18px}
+header{padding:44px 0 24px}
+.tag{display:inline-block;background:var(--acc2);color:var(--acc);font-weight:600;font-size:13px;padding:4px 12px;border-radius:99px}
+h1{font-size:clamp(26px,5vw,42px);line-height:1.15;margin:14px 0 10px}
+h2{font-size:24px;margin:0 0 6px}
+p.l{color:var(--mute);max-width:720px;margin:0}
+section{padding:26px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+label{font-size:12px;color:var(--mute);display:block;margin-bottom:3px}
+input[type=number],input[type=file]{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px;width:130px;font:inherit}
+input[type=file]{width:auto;max-width:100%}
+button{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) button{color:#06201e}}
+button.s{background:var(--acc2);color:var(--acc)}
+button:disabled{opacity:.5}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.fig{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.fig canvas{width:100%;height:auto;border-radius:6px;background:#000;image-rendering:pixelated}
+.fig b{display:block;margin-top:6px;font-size:14px}.fig small{color:var(--mute)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--mute);font-weight:600}
+.ok{color:var(--ok);font-weight:600}.bad{color:var(--bad);font-weight:600}
+.stat{font-size:30px;font-weight:700;color:var(--acc)}
+.pipe{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+.pipe span{background:var(--acc2);color:var(--acc);padding:6px 12px;border-radius:8px;font-weight:600;font-size:14px}
+.pipe i{color:var(--mute);font-style:normal}
+code{background:var(--bg);padding:2px 6px;border-radius:5px;font-size:13px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+ul{margin:8px 0 0;padding-left:20px}
+footer{padding:26px 0 40px;color:var(--mute);font-size:13px}
+#msg{margin-top:10px;color:var(--bad);font-size:14px}
+@media(max-width:760px){.g4{grid-template-columns:1fr 1fr}.g3,.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="w">
+  <span class="tag">B.Tech CSE · Batch 6</span>
+  <h1>Robust Chaos-Driven Cryptosystem for Telemedicine Image Privacy</h1>
+  <p class="l">Encrypt a medical image in your browser with a 2D Hénon-map cipher: chaotic permutation (confusion) followed by XOR with a chaotic key image (diffusion). Everything runs locally; no image leaves your device.</p>
+</header>
+
+<main class="w">
+<section>
+  <h2>Live demo</h2>
+  <p class="l" style="margin-bottom:14px">Upload a grayscale or colour image (it is converted to 8-bit grayscale and capped at 512 px), set the secret key, and encrypt.</p>
+  <div class="card">
+    <div class="row">
+      <div><label>Image</label><input type="file" id="file" accept="image/*"></div>
+      <button class="s" id="sample">Use sample scan</button>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <div><label>a</label><input type="number" id="ka" value="1.4" step="any"></div>
+      <div><label>b</label><input type="number" id="kb" value="0.3" step="any"></div>
+      <div><label>x₀</label><input type="number" id="kx" value="0.1" step="any"></div>
+      <div><label>y₀</label><input type="number" id="ky" value="0.3" step="any"></div>
+      <button id="enc">Encrypt &amp; decrypt</button>
+      <button class="s" id="dl" disabled>Download cipher PNG</button>
+    </div>
+    <div id="msg"></div>
+  </div>
+
+  <div class="g4">
+    <div class="fig"><canvas id="c0"></canvas><b>Original</b><small id="t0"></small></div>
+    <div class="fig"><canvas id="c1"></canvas><b>Confused</b><small>Pixels permuted</small></div>
+    <div class="fig"><canvas id="c2"></canvas><b>Encrypted</b><small>Permuted + XOR</small></div>
+    <div class="fig"><canvas id="c3"></canvas><b>Decrypted</b><small id="t3"></small></div>
+  </div>
+  <div class="g3">
+    <div class="fig"><canvas id="h0" width="256" height="90"></canvas><b>Original histogram</b></div>
+    <div class="fig"><canvas id="h1" width="256" height="90"></canvas><b>Confused histogram</b></div>
+    <div class="fig"><canvas id="h2" width="256" height="90"></canvas><b>Encrypted histogram</b></div>
+  </div>
+</section>
+
+<section>
+  <h2>Measured statistics</h2>
+  <p class="l" style="margin-bottom:14px">Computed live on the image above. Ideal ciphertext: entropy ≈ 8 bits, χ² below 293.25 (255 d.o.f., 5 % level), correlation ≈ 0.</p>
+  <div class="card scroll"><table>
+    <thead><tr><th>Image</th><th>Entropy (bits)</th><th>χ²</th><th>Corr. horizontal</th><th>Corr. vertical</th><th>Corr. diagonal</th></tr></thead>
+    <tbody id="stats"></tbody></table></div>
+</section>
+
+<section>
+  <h2>Security tests</h2>
+  <p class="l" style="margin-bottom:14px">Run key-sensitivity, plaintext-sensitivity and robustness tests on the current image and key.</p>
+  <div class="row"><button id="sec">Run tests</button>
+    <div><label>Key error δ on x₀</label><input type="number" id="delta" value="1e-10" step="any"></div></div>
+  <div class="g3" id="secout" style="display:none">
+    <div class="card"><b>Key sensitivity</b><div class="stat" id="s1">–</div><p id="s1t" class="l"></p><canvas id="cw" style="width:100%;margin-top:8px;border-radius:6px"></canvas></div>
+    <div class="card"><b>Plaintext sensitivity</b><div class="stat" id="s2">–</div><p id="s2t" class="l"></p></div>
+    <div class="card"><b>Robustness</b><div class="stat" id="s3">–</div><p id="s3t" class="l"></p><canvas id="cr" style="width:100%;margin-top:8px;border-radius:6px"></canvas></div>
+  </div>
+</section>
+
+<section>
+  <h2>How it works</h2>
+  <div class="card">
+    <div class="pipe"><span>Secret key (a, b, x₀, y₀)</span><i>→</i><span>Hénon map, N + 1000 steps</span><i>→</i><span>X: sort index = permutation</span><i>+</i><span>Y: ⌊|y|·10¹⁴⌋ mod 256 = key image</span></div>
+    <div class="pipe"><span>Plain image</span><i>→</i><span>Confusion: C[i] = I[P[i]]</span><i>→</i><span>Diffusion: E[i] = C[i] ⊕ K[i]</span><i>→</i><span>Cipher image</span></div>
+    <p class="l" style="margin-top:14px">Map: <code>xₙ₊₁ = 1 − a·xₙ² + yₙ</code>, <code>yₙ₊₁ = b·xₙ</code>. The first 1000 iterations are discarded. Decryption regenerates the same series, XORs again (self-inverse) and inverts the permutation, so recovery is pixel-exact. Default key: a = 1.4, b = 0.3, x₀ = 0.1, y₀ = 0.3.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Project results (from the report)</h2>
+  <div class="card scroll"><table>
+    <thead><tr><th>Test image</th><th>Entropy: original → encrypted</th><th>Neighbour correlation (H)</th></tr></thead>
+    <tbody>
+      <tr><td>Cameraman 512×512</td><td>7.232 → 7.9994</td><td>0.978 → −0.0002</td></tr>
+      <tr><td>Moon 512×512</td><td>4.885 → 7.9993</td><td>0.953 → −0.0027</td></tr>
+      <tr><td>Coins 384×303</td><td>7.524 → 7.9983</td><td>0.937 → 0.0031</td></tr>
+    </tbody></table></div>
+  <div class="two" style="margin-top:12px">
+    <div class="card"><b>Strengths</b><ul><li>Flat histogram, entropy ≈ 7.999 bits</li><li>Spatial correlation removed (|r| &lt; 0.005)</li><li>Key error of 10⁻¹⁵ gives ~99.6 % wrong pixels</li><li>Lossless; stages are swappable (OOP design)</li></ul></div>
+    <div class="card"><b>Limitations and future work</b><ul><li>Keystream ignores the plaintext, so NPCR is only ~0.0004 %</li><li>Key reuse leaks the XOR of two permuted plaintexts</li><li>Next: derive x₀ from an image hash, permute–diffuse–permute rounds, NIST SP 800-22</li></ul></div>
+  </div>
+</section>
+</main>
+
+<footer class="w">
+  Abhirami R (RA2511003050154) · Jananika S (RA2511003050155) · Parvisha V (RA2511003050493) · B.Tech CSE – C. Educational prototype; not a certified medical-grade security product.
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+let W=0,H=0,gray=null,cur=null;
+
+function key(){return{a:+$('ka').value,b:+$('kb').value,x:+$('kx').value,y:+$('ky').value}}
+function henon(n,k){
+  let {a,b,x,y}=k;
+  for(let i=0;i<1000;i++){const t=1-a*x*x+y;y=b*x;x=t}
+  const X=new Float64Array(n),Y=new Float64Array(n);
+  for(let i=0;i<n;i++){const t=1-a*x*x+y;y=b*x;x=t;X[i]=x;Y[i]=y}
+  if(!isFinite(x)||!isFinite(y))throw new Error('This key makes the Hénon orbit diverge. Try a = 1.4, b = 0.3 style values.');
+  return{X,Y};
+}
+function material(n,k){
+  const {X,Y}=henon(n,k);
+  const P=new Uint32Array(n);for(let i=0;i<n;i++)P[i]=i;
+  P.sort((p,q)=>X[p]-X[q]);
+  const K=new Uint8Array(n);for(let i=0;i<n;i++)K[i]=Math.floor(Math.abs(Y[i])*1e14)%256;
+  return{P,K};
+}
+function encrypt(I,k){
+  const n=I.length,{P,K}=material(n,k),C=new Uint8Array(n),E=new Uint8Array(n);
+  for(let i=0;i<n;i++){C[i]=I[P[i]];E[i]=C[i]^K[i]}
+  return{C,E};
+}
+function decrypt(E,k){
+  const n=E.length,{P,K}=material(n,k),D=new Uint8Array(n);
+  for(let i=0;i<n;i++)D[P[i]]=E[i]^K[i];
+  return D;
+}
+function draw(id,arr,w,h){
+  const c=$(id);c.width=w;c.height=h;const x=c.getContext('2d'),d=x.createImageData(w,h);
+  for(let i=0;i<arr.length;i++){const v=arr[i];d.data[4*i]=d.data[4*i+1]=d.data[4*i+2]=v;d.data[4*i+3]=255}
+  x.putImageData(d,0,0);
+}
+function hist(arr){const h=new Uint32Array(256);for(let i=0;i<arr.length;i++)h[arr[i]]++;return h}
+function drawHist(id,arr){
+  const c=$(id),x=c.getContext('2d'),h=hist(arr),m=Math.max(...h)||1;
+  x.clearRect(0,0,256,90);
+  x.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--acc').trim()||'#0b7a75';
+  for(let i=0;i<256;i++){const bh=88*h[i]/m;x.fillRect(i,90-bh,1,bh)}
+}
+function entropy(arr){const h=hist(arr),n=arr.length;let s=0;for(const c of h)if(c){const p=c/n;s-=p*Math.log2(p)}return s}
+function chi2(arr){const h=hist(arr),e=arr.length/256;let s=0;for(const c of h)s+=(c-e)*(c-e)/e;return s}
+function corr(arr,w,h,dx,dy){
+  let n=0,sx=0,sy=0,sxx=0,syy=0,sxy=0;
+  for(let y=0;y<h-dy;y++)for(let x=0;x<w-dx;x++){
+    const a=arr[y*w+x],b=arr[(y+dy)*w+x+dx];n++;sx+=a;sy+=b;sxx+=a*a;syy+=b*b;sxy+=a*b;
+  }
+  const num=n*sxy-sx*sy,den=Math.sqrt((n*sxx-sx*sx)*(n*syy-sy*sy));
+  return den?num/den:0;
+}
+function psnr(a,b){let m=0;for(let i=0;i<a.length;i++){const d=a[i]-b[i];m+=d*d}m/=a.length;return m?10*Math.log10(65025/m):Infinity}
+function diffPct(a,b){let c=0;for(let i=0;i<a.length;i++)if(a[i]!==b[i])c++;return 100*c/a.length}
+
+function run(){
+  $('msg').textContent='';
+  if(!gray)return;
+  try{
+    const k=key(),{C,E}=encrypt(gray,k),D=decrypt(E,k);
+    cur={k,C,E,D};
+    draw('c0',gray,W,H);draw('c1',C,W,H);draw('c2',E,W,H);draw('c3',D,W,H);
+    drawHist('h0',gray);drawHist('h1',C);drawHist('h2',E);
+    let ok=true;for(let i=0;i<gray.length;i++)if(gray[i]!==D[i]){ok=false;break}
+    $('t0').textContent=W+' × '+H;
+    $('t3').innerHTML=ok?'<span class="ok">Pixel-exact match ✓</span>':'<span class="bad">Mismatch</span>';
+    const rows=[['Original',gray],['Confused',C],['Encrypted',E]];
+    $('stats').innerHTML=rows.map(([n,a])=>{
+      const ch=chi2(a),pass=ch<293.25;
+      return `<tr><td>${n}</td><td>${entropy(a).toFixed(4)}</td><td class="${n==='Encrypted'?(pass?'ok':'bad'):''}">${ch.toFixed(1)}</td><td>${corr(a,W,H,1,0).toFixed(4)}</td><td>${corr(a,W,H,0,1).toFixed(4)}</td><td>${corr(a,W,H,1,1).toFixed(4)}</td></tr>`;
+    }).join('');
+    $('dl').disabled=false;
+    $('secout').style.display='none';
+  }catch(e){$('msg').textContent=e.message}
+}
+
+function runSecurity(){
+  if(!cur){return}
+  try{
+    const {k,E}=cur,n=E.length;
+    // key sensitivity
+    const dl=+$('delta').value||1e-10,wk={...k,x:k.x+dl},Dw=decrypt(E,wk);
+    $('s1').textContent=diffPct(gray,Dw).toFixed(2)+'%';
+    $('s1t').textContent='of pixels differ when x₀ is off by '+dl+' (PSNR '+psnr(gray,Dw).toFixed(1)+' dB).';
+    draw('cw',Dw,W,H);
+    // plaintext sensitivity
+    const g2=gray.slice(),p=Math.floor(n/2);g2[p]=(g2[p]+1)&255;
+    const E2=encrypt(g2,k).E,np=diffPct(E,E2);
+    $('s2').textContent=np.toFixed(4)+'%';
+    $('s2t').textContent='NPCR after a one-level change in one pixel (ideal ≈ 99.61 %). Low by design: the keystream does not depend on the plaintext. This is the weakness listed in the report.';
+    // robustness
+    const Ed=E.slice();Ed.fill(0,0,Math.floor(n*0.25));
+    const Dr=decrypt(Ed,k);
+    $('s3').textContent=psnr(gray,Dr).toFixed(1)+' dB';
+    $('s3t').textContent='PSNR after decrypting with 25 % of the cipher image erased; the damage stays localised.';
+    draw('cr',Dr,W,H);
+    $('secout').style.display='grid';
+  }catch(e){$('msg').textContent=e.message}
+}
+
+function loadImage(img){
+  const s=Math.min(1,512/Math.max(img.width,img.height));
+  W=Math.max(8,Math.round(img.width*s));H=Math.max(8,Math.round(img.height*s));
+  const c=document.createElement('canvas');c.width=W;c.height=H;
+  const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(img,0,0,W,H);
+  const d=x.getImageData(0,0,W,H).data;gray=new Uint8Array(W*H);
+  for(let i=0;i<W*H;i++)gray[i]=Math.round(.299*d[4*i]+.587*d[4*i+1]+.114*d[4*i+2]);
+  run();
+}
+function sample(){
+  const c=document.createElement('canvas');c.width=c.height=384;const x=c.getContext('2d');
+  let g=x.createRadialGradient(192,192,10,192,192,260);g.addColorStop(0,'#3a3a3a');g.addColorStop(1,'#050505');
+  x.fillStyle=g;x.fillRect(0,0,384,384);
+  x.fillStyle='#8a8a8a';x.beginPath();x.ellipse(192,200,120,150,0,0,7);x.fill();
+  x.fillStyle='#1c1c1c';x.beginPath();x.ellipse(135,195,48,90,.1,0,7);x.fill();x.beginPath();x.ellipse(249,195,48,90,-.1,0,7);x.fill();
+  x.strokeStyle='#cfcfcf';x.lineWidth=5;
+  for(let i=0;i<6;i++){x.beginPath();x.moveTo(192,120+i*28);x.quadraticCurveTo(110,100+i*28,70,150+i*30);x.stroke();x.beginPath();x.moveTo(192,120+i*28);x.quadraticCurveTo(274,100+i*28,314,150+i*30);x.stroke()}
+  x.fillStyle='#e8e8e8';x.fillRect(184,100,16,200);
+  x.fillStyle='#bbb';x.font='bold 18px sans-serif';x.fillText('PATIENT 0042  R',14,28);
+  loadImage(c);
+}
+$('file').addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;
+  const img=new Image();img.onload=()=>loadImage(img);img.onerror=()=>$('msg').textContent='Could not read that image.';
+  img.src=URL.createObjectURL(f);
+});
+$('sample').onclick=sample;
+$('enc').onclick=run;
+$('sec').onclick=runSecurity;
+$('dl').onclick=()=>{
+  const c=$('c2'),a=document.createElement('a');a.download='encrypted.png';a.href=c.toDataURL('image/png');a.click();
+};
+sample();
+</script>
+</body>
+</html>
